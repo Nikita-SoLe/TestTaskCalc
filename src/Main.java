@@ -6,51 +6,47 @@ public class Main {
     public static void main(String[] args) throws IOException {
         Scanner scan = new Scanner(System.in);
 
-        while (true) {
-            String str = scan.nextLine();
-            System.out.println(calc(str));
-        }
-
+        String str = scan.nextLine();
+        System.out.println(calc(str));
     }
 
-    public static String calc(String input) throws IOException {
+    public static int calc(String input) throws IOException {
         String[] mas = input.split(" ");
+
         if (mas.length != 3) throw new IOException();
 
-        int num1;
-        if (isNumCorrect(mas[0])) num1 = Integer.parseInt(mas[0]);
-        else throw new IOException();
-
-        int num2;
-        if (isNumCorrect(mas[2])) num2 = Integer.parseInt(mas[2]);
-        else throw new IOException();
+        int num1 = isNumCorrect(mas[0]);
+        int num2 = isNumCorrect(mas[2]);
 
         char operator = mas[1].charAt(0);
+
         return _calc(num1, num2, operator);
     }
 
-    static String _calc(int x, int y, char op) throws IOException {
-        switch (op) {
-            case '+' -> {
-                return String.format("%d", x + y);
-            }
-            case '-' -> {
-                return String.format("%d", x - y);
-            }
-            case '/' -> {
-                return String.format("%d", x / y);
-            }
-            case '*' -> {
-                return String.format("%d", x * y);
-            }
-            default -> {
-                throw new IOException();
-            }
+    static int isNumCorrect(String str) throws IOException {
+        int num = Integer.parseInt(str);
+        if (num <= 10 && num > 0) {
+            return num;
         }
+        throw new IOException();
     }
 
-    static boolean isNumCorrect(String str) {
-        int num = Integer.parseInt(str);
-        return num <= 10 && num > 0;
+    static int _calc(int x, int y, char op) throws IOException {
+
+        switch (op) {
+            case '+' -> {
+                return x + y;
+            }
+            case '-' -> {
+                return x - y;
+            }
+            case '/' -> {
+                return x / y;
+            }
+            case '*' -> {
+                return x * y;
+            }
+        }
+        throw new IOException();
     }
 }
